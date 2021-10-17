@@ -11,132 +11,126 @@
 </head>
 
 <body>
-    <section class="app vue-app">
-        <h1>VUE</h1>
-        <h2>How much will?</h2>
-        <p>{{counter}} + {{step}}</p>
-        <p><strong>Result: {{sum}}</strong></p>
-        <div class="math">
-            Counter:
-            <button class="button minus" v-on:click="decrementCounterHandler">-1</button>
-            <button class="button plus" v-on:click="incrementCounterHandler">+1</button>
-        </div>
-        <div class="math">
-            Step:
-            <button class="button minus" v-on:click="decrementStepHandler">-2</button>
-            <button class="button plus" v-on:click="incrementStepHandler">+2</button>
-        </div>
-    </section>
-    <hr>
-    <section class="app js-app">
-        <h1>JS</h1>
-        <h2>How much will?</h2>
-        <p><span class="counter"></span> + <span class="step"></span></p>
-        <p><strong>Result: <span class="sum"></span></strong></p>
-        <div class="math">
-            Counter:
-            <button class="button minus">-1</button>
-            <button class="button plus">+1</button>
-        </div>
-        <div class="math">
-            Step:
-            <button class="button minus">-2</button>
-            <button class="button plus">+2</button>
-        </div>
-    </section>
-    <script>
-        const $vue = new Vue({
-            el: '.vue-app',
-            data: {
-                counter: 1,
-                step: 2
-            },
-            methods: {
-                incrementCounterHandler() {
-                    return this.counter += 1;
-                },
-                decrementCounterHandler() {
-                    return this.counter -= 1;
-                },
-                incrementStepHandler() {
-                    return this.step += 2;
-                },
-                decrementStepHandler() {
-                    return this.step -= 2;
-                }
-            },
-            computed: {
-                sum() {
-                    return (this.counter + this.step)
-                }
-            }
-        })
-    </script>
-    <script>
-        const counterEl = document.querySelector('.js-app .counter');
-        const buttonElMinus = document.querySelector('.js-app .minus');
-        const buttonElPlus = document.querySelector('.js-app .plus');
-        const sumEl = document.querySelector('.js-app .sum');
-        const stepEl = document.querySelector('.js-app .step');
-
-        const data = {
+<section class="app vue-app">
+    <h1>VUE</h1>
+    <h2>How much will?</h2>
+    <p>{{counter}} + {{step}}</p>
+    <p><strong>Result: {{sum}}</strong></p>
+    <div class="math">
+        Counter:
+        <button class="button minus" v-on:click="decrementCounterHandler">-1</button>
+        <button class="button plus" v-on:click="incrementCounterHandler">+1</button>
+    </div>
+    <div class="math">
+        Step:
+        <button class="button minus" v-on:click="decrementStepHandler">-2</button>
+        <button class="button plus" v-on:click="incrementStepHandler">+2</button>
+    </div>
+</section>
+<hr>
+<section class="app js-app">
+    <h1>JS</h1>
+    <h2>How much will?</h2>
+    <p><span class="counter"></span> + <span class="step"></span></p>
+    <p><strong>Result: <span class="sum"></span></strong></p>
+    <div class="math">
+        Counter:
+        <button class="button minus" id="counterMinus">-1</button>
+        <button class="button plus" id="counterPlus">+1</button>
+    </div>
+    <div class="math">
+        Step:
+        <button class="button minus" id="stepMinus">-2</button>
+        <button class="button plus" id="stepPlus">+2</button>
+    </div>
+</section>
+<script>
+    const $vue = new Vue({
+        el: '.vue-app',
+        data: {
             counter: 1,
             step: 2
-        };
+        },
+        methods: {
+            incrementCounterHandler() {
+                return this.counter += 1;
+            },
+            decrementCounterHandler() {
+                return this.counter -= 1;
+            },
+            incrementStepHandler() {
+                return this.step += 2;
+            },
+            decrementStepHandler() {
+                return this.step -= 2;
+            }
+        },
+        computed: {
+            sum() {
+                return (this.counter + this.step)
+            }
+        }
+    })
+</script>
+<script>
+    const counterEl = document.querySelector('.js-app .counter');
+    const buttonCounterMinus = document.getElementById("counterMinus");
+    const buttonCounterPlus = document.getElementById("counterPlus");
+    const buttonStepMinus = document.getElementById("stepMinus");
+    const buttonStepPlus = document.getElementById("stepPlus");
+    const sumEl = document.querySelector('.js-app .sum');
+    const stepEl = document.querySelector('.js-app .step');
 
-        const incrementCounterHandler = function () {
-            console.log("111")
-            data.counter += 1;
-            counterEl.textContent = data.counter
-        };
-        const decrementCounterHandler = function () {
-            console.log("222")
-            data.counter -= 1;
-            counterEl.textContent = data.counter
-        };
-        const incrementStepHandler = function () {
-            console.log("333")
-            data.step += 2;
-            stepEl.textContent = data.step
-        };
-        const decrementStepHandler = function () {
-            console.log("444")
-            data.step -= 2;
-            stepEl.textContent = data.step
-        };
+    const data = {
+        counter: 1,
+        step: 2
+    };
 
-        const getSum = function () {
-            const sum = (data.counter + data.step)
-            sumEl.textContent = sum
-            return sum
-        };
+    const incrementCounterHandler = function () {
+        data.counter += 1;
+        counterEl.textContent = data.counter
+    };
+    const decrementCounterHandler = function () {
+        data.counter -= 1;
+        counterEl.textContent = data.counter
+    };
+    const incrementStepHandler = function () {
+        data.step += 2;
+        stepEl.textContent = data.step
+    };
+    const decrementStepHandler = function () {
+        data.step -= 2;
+        stepEl.textContent = data.step
+    };
 
-        const queue = [getSum];
+    const getSum = function () {
+        const sum = (data.counter + data.step)
+        sumEl.textContent = sum
+        return sum
+    };
 
-        Object.keys(data).forEach(key => {
-            let value = data[key]; // data.counter, data.counter1, data.counter2
-            Object.defineProperty(data, key, {
-                get: function () {
-                    // console.log('get');
-                    // queue.push();
-                    return value;
-                },
-                set: function (newValue) {
-                    // console.log('set');
-                    value = newValue;
-                    queue.forEach(fn => fn());
-                }
-            });
+    const queue = [getSum];
+
+    Object.keys(data).forEach(key => {
+        let value = data[key];
+        Object.defineProperty(data, key, {
+            get: function () {
+                return value;
+            },
+            set: function (newValue) {
+                value = newValue;
+                queue.forEach(fn => fn());
+            }
         });
-
-        counterEl.textContent = data.counter;
-        stepEl.textContent = data.step;
-        getSum();
-        buttonElMinus.addEventListener('click', decrementCounterHandler);
-        buttonElPlus.addEventListener('click', incrementCounterHandler);
-        buttonElMinus.addEventListener('click', decrementStepHandler);
-        buttonElPlus.addEventListener('click', incrementStepHandler);
-    </script>
+    });
+    counterEl.textContent = data.counter;
+    stepEl.textContent = data.step;
+    getSum();
+    buttonCounterMinus.addEventListener('click', decrementCounterHandler);
+    buttonCounterPlus.addEventListener('click', incrementCounterHandler);
+    buttonStepMinus.addEventListener('click', decrementStepHandler);
+    buttonStepPlus.addEventListener('click', incrementStepHandler);
+</script>
 </body>
 
 </html>
