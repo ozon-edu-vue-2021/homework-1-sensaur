@@ -23,8 +23,8 @@
         </div>
         <div class="math">
             Step:
-            <button class="button minus">-2</button>
-            <button class="button plus">+2</button>
+            <button class="button minus" v-on:click="decrementStepHandler">-2</button>
+            <button class="button plus" v-on:click="incrementStepHandler">+2</button>
         </div>
     </section>
     <hr>
@@ -52,12 +52,23 @@
                 step: 2
             },
             methods: {
-                incrementCounterHandler() {},
-                decrementCounterHandler() {}
-                //...
+                incrementCounterHandler() {
+                    return this.counter += 1;
+                },
+                decrementCounterHandler() {
+                    return this.counter -= 1;
+                },
+                incrementStepHandler() {
+                    return this.step += 2;
+                },
+                decrementStepHandler() {
+                    return this.step -= 2;
+                }
             },
             computed: {
-                sum() {}
+                sum() {
+                    return (this.counter + this.step)
+                }
             }
         })
     </script>
@@ -73,10 +84,32 @@
             step: 2
         };
 
-        const incrementCounterHandler = function () {};
-        const decrementCounterHandler = function () {};
-        //...
-        const getSum = function () {};
+        const incrementCounterHandler = function () {
+            console.log("111")
+            data.counter += 1;
+            counterEl.textContent = data.counter
+        };
+        const decrementCounterHandler = function () {
+            console.log("222")
+            data.counter -= 1;
+            counterEl.textContent = data.counter
+        };
+        const incrementStepHandler = function () {
+            console.log("333")
+            data.step += 2;
+            stepEl.textContent = data.step
+        };
+        const decrementStepHandler = function () {
+            console.log("444")
+            data.step -= 2;
+            stepEl.textContent = data.step
+        };
+
+        const getSum = function () {
+            const sum = (data.counter + data.step)
+            sumEl.textContent = sum
+            return sum
+        };
 
         const queue = [getSum];
 
@@ -84,12 +117,12 @@
             let value = data[key]; // data.counter, data.counter1, data.counter2
             Object.defineProperty(data, key, {
                 get: function () {
-                    console.log('get');
+                    // console.log('get');
                     // queue.push();
                     return value;
                 },
                 set: function (newValue) {
-                    console.log('set');
+                    // console.log('set');
                     value = newValue;
                     queue.forEach(fn => fn());
                 }
@@ -101,6 +134,8 @@
         getSum();
         buttonElMinus.addEventListener('click', decrementCounterHandler);
         buttonElPlus.addEventListener('click', incrementCounterHandler);
+        buttonElMinus.addEventListener('click', decrementStepHandler);
+        buttonElPlus.addEventListener('click', incrementStepHandler);
     </script>
 </body>
 
